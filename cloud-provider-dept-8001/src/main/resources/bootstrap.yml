@@ -1,0 +1,43 @@
+server:
+  port: 8001
+
+mybatis:
+#  config-location: classpath:mybatis/mybatis.cfg.xml
+  type-aliases-package: com.hwj.entities
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    cache-enabled: true
+    map-underscore-to-camel-case: true #开启驼峰命名
+
+spring:
+  application:
+    name: cloud-dept
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/clouddb01?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
+    username: root
+    password: wmdaycls5!@#$
+    dbcp2:
+      min-idle: 5 #连接池最小维持数量
+      initial-size: 5 # 初始化连接数
+      max-total: 5 #最大连接数
+      max-wait-millis: 200
+
+  cloud:
+    config:
+      enabled: false
+eureka:
+  instance:
+    instance-id: cloud-dept:8001
+      #访问路径显示IP地址
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone:http://eureka7001.com/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
+
+info:
+  app.name: cloud-dept
+  company.name: www.hwj.com
+  build.artifactId: ${project.artifactId}
+  build.version: ${project.version}
